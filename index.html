@@ -12,6 +12,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/slick.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	  	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+
 	<title>Author</title>
 </head>
 <body>
@@ -28,11 +32,11 @@
 					<li><a href="#quotes">Motto hidup</a></li>
 					<li><a href="#lesson-learn">Kontak</a></li>
 					<li><a href="#kontak">Lesson Learn</a></li>
-					<li><a href="https://tabitha2912.github.io/DataScraping1/">Data Scraping 1</a></li>
-					<li><a href="https://tabitha2912.github.io/DataScraping2.github.io/">Data Scraping 2</a></li>
+					<li><a href="#scrap1">Data Scraping 1</a></li>
+					<li><a href="#scrap2">Data Scraping 2</a></li>
 				</ul>
 			</div>
-			<div id="myBtn" class="burger-container" onclick="myFunction(this)">
+			<div id="myBtn" class="burger-container" style="position: fixed;"  onclick="myFunction(this)">
 				<div class="bar1"></div>
 				<div class="bar2"></div>
 				<div class="bar3"></div>
@@ -213,7 +217,80 @@
 		</div>
 	</section>
 	<!-- Quotes end -->
-	
+	<br><br>
+	<center><div id="scrap1" style="width: 80%">
+	<h1>Hasil Scraping 1</h1>
+	<div id="headline_teks">	
+		
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+		
+	  
+	  	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+	  	<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+	  	<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$.get('terkini.json', function(obj){
+					// Pisahkan \n yang menjadi batas antar headline (newline)
+					var str = "<table border=1 id=tabel-data class='table table-striped table-bordered' width=80% cellspacing=0>";
+
+					str+="<thead><tr><td>No</td><td>Judul Headline</td><td>Kategori</td><td>Waktu Upload</td><td>Tanggal Scrapping</td></tr></thead>";
+					$.each(obj, function(n, dataTerkini){
+						str+="<tr><td>"+(n+1)+"</td>";
+						str+="<td>"+dataTerkini.judul+"</td>";
+						str+="<td>"+dataTerkini.kategori+"</td>";
+						str+="<td>"+dataTerkini.tanggal+"</td>";
+						str+="<td>"+dataTerkini.waktu+"</td></tr>";
+					});
+					//Display semua headline ke html dengan id=headline_teks
+					str+="</table>";
+					$('#headline_teks').html(str);
+				});
+			});
+
+			$(document).ready(function() {
+		    	$('#example').DataTable();
+			} );
+		</script>
+	</div></center>
+	</div>
+
+	<br><br>
+	<center><div id="scrap2" style="width: 80%">
+	<h1>Hasil Scraping 2</h1>
+	<div style="width: 80%">	
+		
+			<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+			<script type="text/javascript">
+		        $(function () {
+		        	//Mengambil data dari file headlineScraper.json dengan fungsi $.get() JQuery
+		          $.get("hasilscraping.json", function (obj) {
+		          	//Tag tabel awal
+		            var str = "<table class='table table-striped table-hover border=1' width=80%>";
+		  			//Judul tabel
+		            str += "<br><br><tr><td>Ranking</td><td>Poster Film</td><td>Title</td><td>Release Year</td><td>Percent Rate</td><td>Director</td><td>Scraping Date</td></tr>";
+		  			//Looping data headline dengan fungsi $.each() JQuery
+		            $.each(obj, function(n, movie){
+						str+="<tr><td>"+movie.Ranking+"</td>";
+						str+='<td><img src="'+movie.Image+'"></td>';
+						str+="<td>"+movie.Title+"</td>";
+						str+="<td>"+movie.Release_Date+"</td>";
+						str+="<td>"+movie.Percent_Rate+"</td>";
+						str+="<td>"+movie.Director+"</td>";
+						str+="<td>"+movie.Scraping_Date+"</td></tr>";
+		            });
+		  			//Tag tabel penutup
+		            str += "</table>";
+		            //Display semua headline ke html dengan id=media
+		            $("#headline_json").html(str);
+		          });
+		        });
+		      </script>
+	</div>
+	</div>
+	<div id="headline_json" style="width: 80%">
+		
+	</div></center>
 	<!-- Footer -->
 	<footer class="site-footer">
 		<div class="site-container">
